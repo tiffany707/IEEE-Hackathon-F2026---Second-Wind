@@ -76,6 +76,7 @@ This case is a bit harder (precision and recall). Ask a mentor if those words ar
 Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).
 
 
-## Additional Wind Data
+## Additional Wind/Power Generation Data
 
 - [Pincher Creek Wind Data](https://pinchercreek.weatherstats.ca/metrics/wind.html)
+- [Alberta Power Generation Capacity Data](http://ets.aeso.ca/ets_web/ip/Market/Reports/CSDReportServlet)

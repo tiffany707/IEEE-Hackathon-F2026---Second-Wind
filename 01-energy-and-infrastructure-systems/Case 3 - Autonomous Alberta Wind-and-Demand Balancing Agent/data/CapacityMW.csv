@@ -1,0 +1,5 @@
+﻿GROUP,MaximumCapacity,TotalNetGeneration,DispatchContigencyReserve
+GAS FIRED STEAM,3078,520,26
+HYDRO,896,232,235
+OTHER,485,232,10
+ENERGY STORAGE,270,0,130
