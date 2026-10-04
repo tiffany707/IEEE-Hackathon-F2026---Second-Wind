@@ -74,3 +74,8 @@ This case is a bit harder (precision and recall). Ask a mentor if those words ar
 4. Change the wind-share cutoff and run it again.
 
 Data notes: [`data/README.md`](data/README.md). **Python 3.10+** (3.11 is best).
+
+
+## Additional Wind Data
+
+- [Pincher Creek Wind Data](https://pinchercreek.weatherstats.ca/metrics/wind.html)
