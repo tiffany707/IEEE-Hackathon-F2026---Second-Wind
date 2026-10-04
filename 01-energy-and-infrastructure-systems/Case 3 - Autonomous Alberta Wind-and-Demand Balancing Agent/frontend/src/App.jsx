@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DataTable from "./DataTable";
+import ModelResults from "./ModelResults";
 import findings from "./findings.json";
 
 const SIGNAL = {
@@ -266,7 +267,7 @@ function Findings() {
         </div>
       </section>
 
-      <section className="grid gap-3 lg:grid-cols-2">
+      {/* <section className="grid gap-3 lg:grid-cols-2">
         <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
           <h2 className="text-lg font-semibold">What the model uses</h2>
           <p className="mt-1 text-sm text-slate-400">
@@ -318,7 +319,7 @@ function Findings() {
             {`Warnings moved from ${fmt(original.warningsSentTest)} to ${fmt(stricter.warningsSentTest)} (${(findings.warningChange >= 0 ? "+" : "") + fmt(findings.warningChange)}).`}
           </p>
         </div>
-      </section>
+      </section> */}
 
       <p className="text-xs text-slate-500">
         {findings.dataset.rows.toLocaleString("en-CA")} hourly rows, {findings.dataset.start.slice(0, 10)} to{" "}
@@ -365,7 +366,12 @@ export default function App() {
         </nav>
 
         <section>
-          {tab === "overview" && <Findings />}
+          {tab === "overview" && (
+            <div className="space-y-8">
+              <Findings />
+              <ModelResults />
+            </div>
+          )}
           {tab === "data" && (
             <div className="space-y-4">
               <div className="rounded-lg border border-slate-800 bg-slate-900 p-4">
