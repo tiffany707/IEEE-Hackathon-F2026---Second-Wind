@@ -1,0 +1,693 @@
+{
+  "source": "aeso_hourly_2024.csv",
+  "method": "Notebook pipeline: chronological 80/20 split, training-only cutoffs, leakage-safe lags.",
+  "dataset": {
+    "rows": 8783,
+    "start": "2024-01-01 00:00",
+    "end": "2024-12-31 23:00",
+    "trainRows": 6858,
+    "testRows": 1757,
+    "splitTime": "2024-10-19 19:00",
+    "features": 43
+  },
+  "definition": {
+    "loadCutoffMw": 10649.0,
+    "windCutoffMw": 461.255409,
+    "trainTightRate": 0.06305152291488757,
+    "testTightRate": 0.10130904951622083
+  },
+  "models": [
+    {
+      "model": "Histogram gradient boosting",
+      "precision": 0.9055555555555556,
+      "recall": 0.9157303370786517,
+      "f1": 0.9106145251396648,
+      "prAuc": 0.9733692766990371,
+      "warningsSent": 180,
+      "actualTightHours": 178,
+      "confusion": [
+        [
+          1562,
+          17
+        ],
+        [
+          15,
+          163
+        ]
+      ],
+      "threshold": 0.45700064317268996,
+      "cvF1": 0.8663793103443277
+    },
+    {
+      "model": "Random forest",
+      "precision": 0.8260869565217391,
+      "recall": 0.9606741573033708,
+      "f1": 0.8883116883116883,
+      "prAuc": 0.963286201723515,
+      "warningsSent": 207,
+      "actualTightHours": 178,
+      "confusion": [
+        [
+          1543,
+          36
+        ],
+        [
+          7,
+          171
+        ]
+      ],
+      "threshold": 0.3633753768489114,
+      "cvF1": 0.8142292490113598
+    },
+    {
+      "model": "Logistic regression",
+      "precision": 0.5821917808219178,
+      "recall": 0.9550561797752809,
+      "f1": 0.723404255319149,
+      "prAuc": 0.8916173469998988,
+      "warningsSent": 292,
+      "actualTightHours": 178,
+      "confusion": [
+        [
+          1457,
+          122
+        ],
+        [
+          8,
+          170
+        ]
+      ],
+      "threshold": 0.7235685427385488,
+      "cvF1": 0.7261904761899781
+    },
+    {
+      "model": "Same hour last week",
+      "precision": 0.2545454545454545,
+      "recall": 0.23595505617977527,
+      "f1": 0.24489795918367346,
+      "prAuc": null,
+      "warningsSent": 165,
+      "actualTightHours": 178,
+      "confusion": [
+        [
+          1456,
+          123
+        ],
+        [
+          136,
+          42
+        ]
+      ]
+    }
+  ],
+  "bestModel": "Histogram gradient boosting",
+  "baselineF1": 0.24489795918367346,
+  "bestF1": 0.9106145251396648,
+  "f1Lift": 0.6657165659559914,
+  "beatsBaseline": true,
+  "importance": [
+    {
+      "feature": "wind_lag_1",
+      "mean": 0.7049091548125163,
+      "std": 0.021007959318670145
+    },
+    {
+      "feature": "ail_lag_1",
+      "mean": 0.2039268345294877,
+      "std": 0.02614971366515991
+    },
+    {
+      "feature": "wind_change_1h",
+      "mean": 0.012752820877734805,
+      "std": 0.0027079257414163228
+    },
+    {
+      "feature": "ail_lag_24",
+      "mean": 0.0027593207983515277,
+      "std": 0.0016820865785412463
+    },
+    {
+      "feature": "wind_lag_168",
+      "mean": 0.0013015831292506942,
+      "std": 0.0003443552994848028
+    },
+    {
+      "feature": "wind_std_72h",
+      "mean": 0.0011882120714316268,
+      "std": 0.00031726340875717413
+    },
+    {
+      "feature": "ail_change_1h",
+      "mean": 0.0010850629600936633,
+      "std": 0.0012042031263149225
+    },
+    {
+      "feature": "wind_std_6h",
+      "mean": 0.0010605744921178828,
+      "std": 0.0002246721698442184
+    },
+    {
+      "feature": "ail_mean_72h",
+      "mean": 0.000972668602643767,
+      "std": 0.00041346616925443753
+    },
+    {
+      "feature": "hour_sin",
+      "mean": 0.0009517491831908864,
+      "std": 0.0004443173173375226
+    },
+    {
+      "feature": "ail_std_168h",
+      "mean": 0.0007894924464742382,
+      "std": 0.001105200138310806
+    },
+    {
+      "feature": "wind_mean_6h",
+      "mean": 0.0007043929469656929,
+      "std": 0.00038928197264563754
+    }
+  ],
+  "sensitivity": [
+    {
+      "definition": "Original Q80 load and Q20 wind",
+      "loadCutoffMw": 10649.0,
+      "windCutoffMw": 461.255409,
+      "actualTightTest": 178,
+      "warningsSentTest": 180,
+      "precision": 0.9055555555555556,
+      "recall": 0.9157303370786517,
+      "f1": 0.9106145251396648
+    },
+    {
+      "definition": "Stricter Q85 load and Q15 wind",
+      "loadCutoffMw": 10836.0,
+      "windCutoffMw": 326.82172625000004,
+      "actualTightTest": 121,
+      "warningsSentTest": 122,
+      "precision": 0.8770491803278688,
+      "recall": 0.8842975206611571,
+      "f1": 0.8806584362139918,
+      "threshold": 0.4104976972225222,
+      "cvF1": 0.8358208955218882
+    }
+  ],
+  "warningChange": -58,
+  "prices": {
+    "notTight": {
+      "count": 1579,
+      "mean": 36.39460417986067,
+      "median": 24.19,
+      "max": 999.99
+    },
+    "tight": {
+      "count": 178,
+      "mean": 168.40623595505622,
+      "median": 84.22,
+      "max": 924.78
+    }
+  },
+  "byHour": [
+    {
+      "hour": 0,
+      "tight": 3,
+      "hours": 73
+    },
+    {
+      "hour": 1,
+      "tight": 2,
+      "hours": 73
+    },
+    {
+      "hour": 2,
+      "tight": 1,
+      "hours": 73
+    },
+    {
+      "hour": 3,
+      "tight": 1,
+      "hours": 73
+    },
+    {
+      "hour": 4,
+      "tight": 1,
+      "hours": 73
+    },
+    {
+      "hour": 5,
+      "tight": 2,
+      "hours": 73
+    },
+    {
+      "hour": 6,
+      "tight": 6,
+      "hours": 73
+    },
+    {
+      "hour": 7,
+      "tight": 7,
+      "hours": 73
+    },
+    {
+      "hour": 8,
+      "tight": 10,
+      "hours": 73
+    },
+    {
+      "hour": 9,
+      "tight": 9,
+      "hours": 73
+    },
+    {
+      "hour": 10,
+      "tight": 12,
+      "hours": 73
+    },
+    {
+      "hour": 11,
+      "tight": 12,
+      "hours": 73
+    },
+    {
+      "hour": 12,
+      "tight": 16,
+      "hours": 73
+    },
+    {
+      "hour": 13,
+      "tight": 14,
+      "hours": 73
+    },
+    {
+      "hour": 14,
+      "tight": 14,
+      "hours": 73
+    },
+    {
+      "hour": 15,
+      "tight": 11,
+      "hours": 73
+    },
+    {
+      "hour": 16,
+      "tight": 10,
+      "hours": 73
+    },
+    {
+      "hour": 17,
+      "tight": 10,
+      "hours": 73
+    },
+    {
+      "hour": 18,
+      "tight": 7,
+      "hours": 73
+    },
+    {
+      "hour": 19,
+      "tight": 8,
+      "hours": 74
+    },
+    {
+      "hour": 20,
+      "tight": 7,
+      "hours": 74
+    },
+    {
+      "hour": 21,
+      "tight": 6,
+      "hours": 74
+    },
+    {
+      "hour": 22,
+      "tight": 6,
+      "hours": 74
+    },
+    {
+      "hour": 23,
+      "tight": 3,
+      "hours": 74
+    }
+  ],
+  "daily": [
+    {
+      "date": "2024-11-02",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 9.8683019089041e-06
+    },
+    {
+      "date": "2024-11-03",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 1.9235348289355945e-05
+    },
+    {
+      "date": "2024-11-04",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 2.526115164871124e-05
+    },
+    {
+      "date": "2024-11-05",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 6.154651662984094e-05
+    },
+    {
+      "date": "2024-11-06",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00011222325479934975
+    },
+    {
+      "date": "2024-11-07",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 3.636639643336998e-05
+    },
+    {
+      "date": "2024-11-08",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 2.8232695119697066e-05
+    },
+    {
+      "date": "2024-11-09",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.004115484157935458
+    },
+    {
+      "date": "2024-11-10",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 5.144416401384955e-05
+    },
+    {
+      "date": "2024-11-11",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 7.06920622406039e-05
+    },
+    {
+      "date": "2024-11-12",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 8.09951860392939e-05
+    },
+    {
+      "date": "2024-11-13",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 7.719181698611288e-05
+    },
+    {
+      "date": "2024-11-14",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 7.942290805815036e-05
+    },
+    {
+      "date": "2024-11-15",
+      "tight": 10,
+      "warnings": 9,
+      "meanProb": 0.38777463871992707
+    },
+    {
+      "date": "2024-11-16",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00014190483843061816
+    },
+    {
+      "date": "2024-11-17",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 4.285441225235505e-05
+    },
+    {
+      "date": "2024-11-18",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00015845879724465633
+    },
+    {
+      "date": "2024-11-19",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.0001248548419821402
+    },
+    {
+      "date": "2024-11-20",
+      "tight": 14,
+      "warnings": 14,
+      "meanProb": 0.5854040715049902
+    },
+    {
+      "date": "2024-11-21",
+      "tight": 16,
+      "warnings": 16,
+      "meanProb": 0.6652391892760269
+    },
+    {
+      "date": "2024-11-22",
+      "tight": 17,
+      "warnings": 16,
+      "meanProb": 0.6725283810849789
+    },
+    {
+      "date": "2024-11-23",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00025703149598554665
+    },
+    {
+      "date": "2024-11-24",
+      "tight": 4,
+      "warnings": 3,
+      "meanProb": 0.12986375766755362
+    },
+    {
+      "date": "2024-11-25",
+      "tight": 7,
+      "warnings": 8,
+      "meanProb": 0.3272009917733138
+    },
+    {
+      "date": "2024-11-26",
+      "tight": 10,
+      "warnings": 11,
+      "meanProb": 0.4537637373825179
+    },
+    {
+      "date": "2024-11-27",
+      "tight": 8,
+      "warnings": 5,
+      "meanProb": 0.25490807601987553
+    },
+    {
+      "date": "2024-11-28",
+      "tight": 13,
+      "warnings": 11,
+      "meanProb": 0.46130985100535965
+    },
+    {
+      "date": "2024-11-29",
+      "tight": 15,
+      "warnings": 13,
+      "meanProb": 0.5770691244421225
+    },
+    {
+      "date": "2024-11-30",
+      "tight": 0,
+      "warnings": 1,
+      "meanProb": 0.03764878595937633
+    },
+    {
+      "date": "2024-12-01",
+      "tight": 12,
+      "warnings": 11,
+      "meanProb": 0.4565807084514499
+    },
+    {
+      "date": "2024-12-02",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00011586999605127229
+    },
+    {
+      "date": "2024-12-03",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00019277321816003594
+    },
+    {
+      "date": "2024-12-04",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00017290525342011895
+    },
+    {
+      "date": "2024-12-05",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 7.468540355067638e-05
+    },
+    {
+      "date": "2024-12-06",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 9.109395506970974e-05
+    },
+    {
+      "date": "2024-12-07",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 7.557457501559107e-05
+    },
+    {
+      "date": "2024-12-08",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 9.301786917380718e-05
+    },
+    {
+      "date": "2024-12-09",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00012783770405735146
+    },
+    {
+      "date": "2024-12-10",
+      "tight": 3,
+      "warnings": 6,
+      "meanProb": 0.2490645964933087
+    },
+    {
+      "date": "2024-12-11",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 5.462952845431942e-05
+    },
+    {
+      "date": "2024-12-12",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 7.825957731550958e-05
+    },
+    {
+      "date": "2024-12-13",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00012418021082088524
+    },
+    {
+      "date": "2024-12-14",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00011786348320341117
+    },
+    {
+      "date": "2024-12-15",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00013572034833963834
+    },
+    {
+      "date": "2024-12-16",
+      "tight": 16,
+      "warnings": 17,
+      "meanProb": 0.6876605185237309
+    },
+    {
+      "date": "2024-12-17",
+      "tight": 11,
+      "warnings": 11,
+      "meanProb": 0.47155620310823315
+    },
+    {
+      "date": "2024-12-18",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00028424392355877096
+    },
+    {
+      "date": "2024-12-19",
+      "tight": 7,
+      "warnings": 7,
+      "meanProb": 0.2977860026867447
+    },
+    {
+      "date": "2024-12-20",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.0006261854167032459
+    },
+    {
+      "date": "2024-12-21",
+      "tight": 2,
+      "warnings": 3,
+      "meanProb": 0.10924717964039343
+    },
+    {
+      "date": "2024-12-22",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00014367093034422772
+    },
+    {
+      "date": "2024-12-23",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00012085610755314069
+    },
+    {
+      "date": "2024-12-24",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.00012705927128957347
+    },
+    {
+      "date": "2024-12-25",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 7.33011749106159e-05
+    },
+    {
+      "date": "2024-12-26",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 5.4931841733130326e-05
+    },
+    {
+      "date": "2024-12-27",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 8.083913011287757e-05
+    },
+    {
+      "date": "2024-12-28",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 8.370765487839883e-05
+    },
+    {
+      "date": "2024-12-29",
+      "tight": 2,
+      "warnings": 4,
+      "meanProb": 0.18168316144644692
+    },
+    {
+      "date": "2024-12-30",
+      "tight": 0,
+      "warnings": 0,
+      "meanProb": 0.007610388121686455
+    },
+    {
+      "date": "2024-12-31",
+      "tight": 11,
+      "warnings": 12,
+      "meanProb": 0.4861102367855194
+    }
+  ]
+}
